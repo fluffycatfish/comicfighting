@@ -6,6 +6,10 @@ class RegistrationsController < Devise::RegistrationsController
 
 	def create
 		build_resource(sign_up_params)
+      
+      if(User.count == 0)
+         resource.admin = true
+      end
 
    		if resource.save
    			@profile = Profile.new(profile_params)
