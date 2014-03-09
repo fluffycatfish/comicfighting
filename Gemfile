@@ -9,6 +9,11 @@ gem 'bootstrap-sass'
 gem 'carrierwave'
 gem 'mini_magick'
 
+group :production do
+  gem 'pg'
+  gem 'rails_12factor'
+end
+
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
