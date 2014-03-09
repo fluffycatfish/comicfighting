@@ -1,0 +1,62 @@
+<h1>Listing characters</h1>
+
+<%if current_user%>
+  <h2>Your Characters</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Gender</th>
+          <th>Age</th>
+          <th>Race</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+
+    <tbody>
+      <% @yourcharacters.each do |yourcharacter| %>
+      <tr>
+        <td><%= yourcharacter.name %></td>
+        <td><%= yourcharacter.gender %></td>
+        <td><%= yourcharacter.age %></td>
+        <td><%= yourcharacter.race %></td>
+        <td><%= link_to 'Show', yourcharacter %></td>
+        <td><%= link_to 'Edit', edit_character_path(yourcharacter) %></td>
+        <td><%= link_to 'Destroy', yourcharacter, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%end%>
+
+<h2>All Characters</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Creator</th>
+      <th>Created at</th>
+      <th>Edited at</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @characters.each do |character| %>
+      <tr>
+        <td><%= character.name %></td>
+        <td><%= character.user.username%></td>
+        <td><%= character.created_at%></td>
+        <td><%= character.updated_at%></td>
+        <td><%= link_to 'Show', character %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Character', new_character_path %>

@@ -1,4 +1,6 @@
 Comicfighting::Application.routes.draw do
+  resources :characters
+
   get "sessions/new"
   get "registrations/new"
   get "static_pages/home"
@@ -6,6 +8,9 @@ Comicfighting::Application.routes.draw do
   resources :profiles
 
   devise_for :users, :controllers => {:registrations => "registrations", :sessions => "sessions"}
+    # , :path_names { :sign_up => "register" }
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
