@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140309191456) do
+ActiveRecord::Schema.define(version: 20140309202326) do
+
+  create_table "character_sheets", force: true do |t|
+    t.integer  "character_id"
+    t.string   "title"
+    t.text     "description"
+    t.string   "sheet"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "characters", force: true do |t|
     t.integer  "user_id"

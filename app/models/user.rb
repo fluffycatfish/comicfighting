@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
     			:uniqueness => {:case_sensitive => false}
 	has_one :profile
 	has_many :characters
+  has_many :character_sheets
 
 	attr_accessor :login
 

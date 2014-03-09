@@ -1,0 +1,34 @@
+<%= form_for @character_sheet, :html => {:multipart => true} do |f| %>
+  <% if @character_sheet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@character_sheet.errors.count, "error") %> prohibited this character_sheet from being saved:</h2>
+
+      <ul>
+      <% @character_sheet.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :character_id %><br>
+    <%= f.number_field :character_id %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :sheet %><br>
+    <%= f.file_field :sheet %>
+    <%= f.hidden_field :sheet_cache %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Character:</strong>
+  <%= @character_sheet.character_id %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @character_sheet.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @character_sheet.description %>
+</p>
+
+<%= image_tag @character_sheet.sheet_url(:normal).to_s %>
+
+<%= link_to 'Edit', edit_character_sheet_path(@character_sheet) %> |
+<%= link_to 'Back', character_sheets_path %>

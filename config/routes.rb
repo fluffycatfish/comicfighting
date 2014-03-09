@@ -1,4 +1,6 @@
 Comicfighting::Application.routes.draw do
+  resources :character_sheets
+
   resources :characters
 
   get "sessions/new"
