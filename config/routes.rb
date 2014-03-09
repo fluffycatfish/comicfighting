@@ -4,7 +4,7 @@ Comicfighting::Application.routes.draw do
   get "static_pages/about"
   resources :profiles
 
-  devise_for :users, :controllers => {:registrations => "registrations", :sessions => "sessions"}
+  devise_for :users, :controllers => {:registrations => "registrations"}
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -13,7 +13,7 @@ class RegistrationsController < Devise::RegistrationsController
 
    			@profile.user_id = resource.id
    			if @profile.save
-               redirect_to :back
+               redirect_to :controller => 'static_pages', :action => 'home'
    			else
 
    			end

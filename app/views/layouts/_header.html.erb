@@ -4,9 +4,17 @@
       <%= link_to "sample app", '#', id: "logo" %>
       <nav>
         <ul class="nav pull-right">
-          <li><%= link_to "Home",    '#' %></li>
-          <li><%= link_to "Help",    '#' %></li>
-          <li><%= link_to "Sign in", '#' %></li>
+          <li><%= link_to "Home",static_pages_home_path %></li>
+          <li><%= link_to "About",static_pages_about_path%></li>
+          <!-- <li><%= link_to "Sign in", '#' %></li> -->
+          
+          <%if user_signed_in? %>
+            <li> <%= link_to "sing out", destroy_user_session_path %></li>
+            <li> <%= link_to current_user.profile.username, profile_path%></li>
+          <%else%>
+            <li><%= link_to "sign in", new_user_session_path %></li>
+            <li><%= link_to "sign up", new_user_registration_path %></li>
+          <%end%>
         </ul>
       </nav>
     </div>
