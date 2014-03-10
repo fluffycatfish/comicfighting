@@ -15,7 +15,7 @@
   <%= @character_sheet.description %>
 </p>
 
-<%= image_tag @character_sheet.sheet_url(:normal).to_s %>
+<%= image_tag @character_sheet.sheet.to_s %>
 
 <%= link_to 'Edit', edit_character_sheet_path(@character_sheet) %> |
 <%= link_to 'Back', character_sheets_path %>

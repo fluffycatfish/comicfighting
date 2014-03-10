@@ -24,6 +24,28 @@
   <strong>Race:</strong>
   <%= @character.race %>
 </p>
+____________________________________________________________________________________________________________________________________________
+<% if @charasheets %>
+  <% @charasheets.each do |charasheet|%>
+
+    <%= image_tag charasheet.sheet_url(:normal).to_s %>
+
+    <p>
+      <strong>Title:</strong>
+      <%= charasheet.title %>
+    </p>
+
+    <p>
+      <strong>Description:</strong>
+      <%= charasheet.description %>
+    </p>
+
+  <%end%>
+<%else%>
+  <p>There are currently no Character Sheet</p>
+<%end%>
+
+
 
 <%= link_to 'Edit', edit_character_path(@character) %> |
 <%= link_to 'Back', characters_path %>

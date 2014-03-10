@@ -14,6 +14,8 @@ class CharactersController < ApplicationController
   # GET /characters/1
   # GET /characters/1.json
   def show
+    set_character
+    @charasheets = @character.character_sheets
   end
 
   # GET /characters/new
