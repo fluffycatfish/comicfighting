@@ -1,0 +1,31 @@
+<h1>Listing battle_participations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Character</th>
+      <th>Battle</th>
+      <th>Status</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @battle_participations.each do |battle_participation| %>
+      <tr>
+        <td><%= battle_participation.character_id %></td>
+        <td><%= battle_participation.battle_id %></td>
+        <td><%= battle_participation.status %></td>
+        <td><%= link_to 'Show', battle_participation %></td>
+        <td><%= link_to 'Edit', edit_battle_participation_path(battle_participation) %></td>
+        <td><%= link_to 'Destroy', battle_participation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Battle participation', new_battle_participation_path %>

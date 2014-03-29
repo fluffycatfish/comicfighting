@@ -1,0 +1,2 @@
+module BattleParticipationsHelper
+end

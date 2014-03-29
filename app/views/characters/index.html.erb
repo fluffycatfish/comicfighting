@@ -49,9 +49,15 @@
       <tr>
         <td><%= character.name %></td>
         <td><%= character.user.username%></td>
-        <td><%= character.created_at%></td>
-        <td><%= character.updated_at%></td>
+        <td><%= character.created_at.time.localtime%></td>
+        <td><%= character.updated_at.time.localtime%></td>
         <td><%= link_to 'Show', character %></td>
+        <%if current_user%>
+          <%if current_user.admin %>
+            <td><%= link_to 'Show', character %></td>
+            <td><%= link_to 'Show', character %></td>
+          <%end%>
+        <%end%>
       </tr>
     <% end %>
   </tbody>

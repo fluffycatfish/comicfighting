@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Character:</strong>
+  <%= @battle_participation.character_id %>
+</p>
+
+<p>
+  <strong>Battle:</strong>
+  <%= @battle_participation.battle_id %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @battle_participation.status %>
+</p>
+
+<%= link_to 'Edit', edit_battle_participation_path(@battle_participation) %> |
+<%= link_to 'Back', battle_participations_path %>

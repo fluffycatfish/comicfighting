@@ -3,7 +3,6 @@
 <table>
   <thead>
     <tr>
-      <th>Username</th>
       <th>About</th>
       <th>User</th>
       <th></th>
@@ -15,7 +14,6 @@
   <tbody>
     <% @profiles.each do |profile| %>
       <tr>
-        <td><%= profile.username %></td>
         <td><%= profile.about %></td>
         <td><%= profile.user_id %></td>
         <td><%= link_to 'Show', profile %></td>

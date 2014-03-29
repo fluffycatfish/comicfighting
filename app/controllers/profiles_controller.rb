@@ -10,6 +10,15 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   # GET /profiles/1.json
   def show
+    
+  end
+
+  def show()
+
+  end
+
+  def makeadmin
+    @profile.user.update_attribute :admin, true
   end
 
   # GET /profiles/new
@@ -64,11 +73,16 @@ class ProfilesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_profile
+      # @profile = Profile.find(params[:id])
+      # if current_user
+      #   @profile = current_user.profile
+      # end
       @profile = Profile.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
-      params.require(:profile).permit(:username, :about, :user_id)
+      params.require(:profile).permit(:about, :user_id)
     end
+
 end

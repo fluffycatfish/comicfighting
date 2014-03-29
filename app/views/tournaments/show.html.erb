@@ -1,0 +1,83 @@
+<p id="notice"><%= notice %></p>
+
+<h1>
+  <!-- <strong>Name:</strong> -->
+  <%= @tournament.name %>
+</h1>
+
+<p>
+  <strong>About:</strong>
+  <%= @tournament.about %>
+</p>
+
+<p>
+  <strong>Round no:</strong>
+  <%= @tournament.round_no %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%if @tournament.state %>
+  	<!-- tournament has already started -->
+	<!-- todo: might include the current round thing later -->
+	<p>Tournament has already started</p>
+  <%else%>
+	<!-- tournament is still open for registration -->
+	<p>
+		<%= link_to "Participate Now", new_tournament_participation_path(:tournament => @tournament.id),class: "btn btn-primary btn-lg" ,role: "button"%>
+      <%=current_user%>
+  	  	<%if current_user.admin %>
+  			<%= form_for(@tournament) do |f| %>
+  		
+  	    		
+  	    		<% f.check_box :state, { :checked => true }%> 
+  				
+  				<div class="actions">
+  	    			<%= f.submit %>
+  	  			</div>
+    			<%end%>
+  	  	<%end%>
+      <%end%>
+	</p>
+
+  
+</p>
+
+
+<%if current_user%>
+  <%if current_user.admin%>
+  	<%= link_to 'Edit', edit_tournament_path(@tournament) %> 
+  <%end%>
+<%end%>
+
+<h2>Rounds</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Round no</th>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @rounds.each do |round| %>
+      <tr>
+        <td><%= round.round_no %></td>
+        <td><%= round.name %></td>
+        <td><%= link_to 'Show',  tournament_round_path(:tournament_id => @tournament.id)  %></td>
+        <%if current_user%>
+          <%if current_user.admin %>
+          	<td><%= link_to 'Edit', edit_tournament_round_path(:tournament_id => @tournament.id) %></td>
+          	<td><%= link_to 'Destroy', [round.tournament, round], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <%end%>
+        <%end%>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Back to Tournament', tournaments_path %>

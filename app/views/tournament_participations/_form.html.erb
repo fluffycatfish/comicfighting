@@ -1,0 +1,28 @@
+<%= form_for(@tournament_participation) do |f| %>
+  <% if @tournament_participation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tournament_participation.errors.count, "error") %> prohibited this tournament_participation from being saved:</h2>
+
+      <ul>
+      <% @tournament_participation.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :character_id %><br>
+     <%= f.collection_select :character_id, @characters,:id, :name%>
+  </div>
+
+  <div class="field">
+    <% f.label :tournament_id %><br>
+     <% f.number_field :tournament_id, :place_holder => { :value => @tournament.id } %>
+  </div>
+
+ 
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -4,14 +4,27 @@
       <%= link_to "Comic Fighting", static_pages_home_path, id: "logo" %>
       <nav>
         <ul class="nav pull-right">
-          <li><%= link_to "Home",static_pages_home_path %></li>
+          <li><%= link_to "Home",root_path %></li>
           <li><%= link_to "Characters", characters_path %></li>
-          <li><%= link_to "Tournaments", '#' %></li>
+          <li><%= link_to "Tournaments", tournaments_path %></li>
           <li><%= link_to "About",static_pages_about_path%></li>
           
           <%if user_signed_in? %>
-            <li> <%= link_to current_user.username, profiles_path%></li>
-            <li> <%= link_to "sign out", destroy_user_session_path , :method => :delete %>%></li>
+           
+           <li id="fat-menu" class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <%=current_user.username%> <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li> <%= link_to "Profile", profile_path(current_user) %></li>
+                      <%if current_user.admin%>
+                        <li><%= link_to "Admin",static_pages_admin_path%></li>
+                      <%end%>
+                      <li class="divider"></li>
+                      <li> <%= link_to "Sign Out", destroy_user_session_path , :method => :delete %></li> 
+                      
+                    </ul>
+            </li>
           <%else%>
             <li><%= link_to "sign in", new_user_session_path %></li>
             <li><%= link_to "sign up", new_user_registration_path %></li>

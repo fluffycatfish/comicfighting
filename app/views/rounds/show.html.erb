@@ -1,0 +1,72 @@
+<p id="notice"><%= notice %></p>
+
+<ol class="breadcrumb">
+  <li><%=link_to @round.tournament.name, tournament_path(:tournament_id => @round.tournament.id) %></li>
+  <li class="active"><%=@round.name%></li>
+</ol> 
+
+<p>
+  <strong>Round no:</strong>
+  <%= @round.round_no %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @round.name %>
+</p>
+
+<p>
+  <strong>About:</strong>
+  <%= @round.about %>
+</p>
+
+<p>
+  <strong>Turn duration:</strong>
+  <%= @round.turn_duration %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @round.start_date %>
+</p>
+
+<p>
+  <strong>Vote date:</strong>
+  <%= @round.vote_date %>
+</p>
+
+<p>
+  <strong>Calc date:</strong>
+  <%= @round.calc_date %>
+</p>
+
+<h1>Listing battles</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @battles.each do |battle| %>
+      <tr>
+        <td><%= link_to 'Show',  tournament_round_battle_path(:round_id => @round.id) %></td>
+        <td><%= battle.name %></td>
+        <%if current_user%>
+          <%if current_user.admin%>
+            <td><%= link_to 'Edit', edit_tournament_round_battle_path(:round_id => @round.id) %></td>
+            <td><%= link_to 'Destroy', tournament_round_battle_path(:round_id => @round.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <%end%>
+        <%end%>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<%= link_to 'Edit', edit_tournament_round_path(@round, :tournament_id => @round.tournament.id) %> 

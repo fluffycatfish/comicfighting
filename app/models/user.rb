@@ -5,9 +5,11 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
     validates 	:username,
     			:uniqueness => {:case_sensitive => false}
+          
 	has_one :profile
 	has_many :characters
   has_many :character_sheets
+  has_many :profile_pics
 
 	attr_accessor :login
 

@@ -1,3 +1,9 @@
-<h1>Welcome to Comic Fighting</h1>
-<h2>There are currently <%= @users.count %> registered users</h2>
-<h2>There are currently <%= @characters.count %>  charcters</h2>
+<div class="jumbotron">
+	<h1>Welcome to The World of ComicFighting</h1>
+  <p>...</p>
+  <p><%= link_to "Sign Up Now",new_user_registration_path,class: "btn btn-primary btn-lg" ,role: "button"%></a></p>
+</div>
+
+<p>There are currently <%= @users.count %> registered users</p>
+<p>There are currently <%= @characters.count %>  charcters</p>
+

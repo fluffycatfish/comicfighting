@@ -1,0 +1,39 @@
+<h1>Listing rounds</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Round no</th>
+      <th>Name</th>
+      <th>About</th>
+      <th>Turn duration</th>
+      <th>Start date</th>
+      <th>Vote date</th>
+      <th>Calc date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @rounds.each do |round| %>
+      <tr>
+        <td><%= round.round_no %></td>
+        <td><%= round.name %></td>
+        <td><%= round.about %></td>
+        <td><%= round.turn_duration %></td>
+        <td><%= round.start_date %></td>
+        <td><%= round.vote_date %></td>
+        <td><%= round.calc_date %></td>
+        <td><%= link_to 'Show', round %></td>
+        <td><%= link_to 'Edit', edit_round_path(round) %></td>
+        <td><%= link_to 'Destroy', round, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Round', new_round_path %>

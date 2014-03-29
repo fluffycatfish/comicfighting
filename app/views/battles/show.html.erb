@@ -1,0 +1,74 @@
+
+
+<!-- todo: something's wrong with the breadcrumb -->
+<ol class="breadcrumb">
+  <li><%=link_to @battle.round.tournament.name, tournament_path(:tournament_id => @battle.round.tournament.id) %></li>
+  <li><%=link_to @battle.round.name, tournament_round_path(:tournament_id => @battle.round.tournament.id, :round_id => @battle.round.id) %></li>
+  <li class="active"><%=@battle.name%></li>
+</ol> 
+
+<p id="notice"><%= notice %></p>
+
+<h1>
+  <%= @battle.name %>
+</h1>
+
+<p>
+  <%= @battle.about %>
+</p>
+
+<%= link_to 'Edit', edit_tournament_round_battle_path( :round_id => @battle.round.id, :battle_id => @battle.id) %> 
+
+<!-- showing comments -->
+<%@replies.each do |reply|%>
+  <p><strong><%= reply.user.username %></strong></p>
+  <p><%= reply.body%></p>
+<%end%>
+
+
+<!-- for Commenting -->
+<% if current_user %>
+
+  <strong><%= current_user.username%></strong>
+  <!-- User is logged on -->
+  <%= form_for(@reply) do |f| %>
+    <% if @reply.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@reply.errors.count, "error") %> prohibited this reply from being saved:</h2>
+
+        <ul>
+        <% @reply.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    
+    <div class="field">
+      <% f.label :body %><br>
+      <%= f.text_area :body %>
+    </div>
+    
+      
+    
+    <div class="field">
+      <% f.label :content %><br>
+      <% f.check_box :content, :checked => false %>
+    </div>
+   
+    <div class="field">
+      <%= f.label :battle_id %><br>
+      <%= f.hidden_field :battle_id, :value => @battle.id%>
+
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+<%else%>
+  <!-- user not logged on -->
+  <p>You need to be logged in to comment</p>
+  <!-- todo: complete this part -->
+
+<%end%>
+

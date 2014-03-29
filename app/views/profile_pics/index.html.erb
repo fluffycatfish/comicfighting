@@ -1,0 +1,30 @@
+<h1>Listing profile_pics</h1>
+<!-- before_filter :authenticate_user!, :except => [:show] -->
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Avatar</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @profile_pics.each do |profile_pic| %>
+      <tr>
+        <td><%= profile_pic.user_id %></td>
+        <td><%= profile_pic.avatar %></td>
+        <td><%= link_to 'Show', profile_pic %></td>
+        <td><%= link_to 'Edit', edit_profile_pic_path(profile_pic) %></td>
+        <td><%= link_to 'Destroy', profile_pic, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Profile pic', new_profile_pic_path %>

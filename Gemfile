@@ -8,6 +8,7 @@ gem 'devise'
 gem 'bootstrap-sass'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'bootstrap-datetimepicker-rails'
 
 group :production do
   gem 'pg'
