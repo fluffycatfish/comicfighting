@@ -21,10 +21,12 @@ class CharactersController < ApplicationController
   # GET /characters/new
   def new
     @character = Character.new
+    @charactersheet = CharacterSheet.new
   end
 
   # GET /characters/1/edit
   def edit
+    @charactersheet = CharacterSheet.new
   end
 
   # POST /characters

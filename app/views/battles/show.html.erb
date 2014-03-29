@@ -1,6 +1,3 @@
-
-
-<!-- todo: something's wrong with the breadcrumb -->
 <ol class="breadcrumb">
   <li><%=link_to @battle.round.tournament.name, tournament_path(:tournament_id => @battle.round.tournament.id) %></li>
   <li><%=link_to @battle.round.name, tournament_round_path(:tournament_id => @battle.round.tournament.id, :round_id => @battle.round.id) %></li>
@@ -21,7 +18,7 @@
 
 <!-- showing comments -->
 <%@replies.each do |reply|%>
-  <p><strong><%= reply.user.username %></strong></p>
+  <p><strong><%= link_to reply.user.username, reply.user.profile %></strong></p>
   <p><%= reply.body%></p>
 <%end%>
 
@@ -35,7 +32,6 @@
     <% if @reply.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(@reply.errors.count, "error") %> prohibited this reply from being saved:</h2>
-
         <ul>
         <% @reply.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
@@ -48,8 +44,6 @@
       <% f.label :body %><br>
       <%= f.text_area :body %>
     </div>
-    
-      
     
     <div class="field">
       <% f.label :content %><br>

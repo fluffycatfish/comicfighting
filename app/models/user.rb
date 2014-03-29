@@ -23,10 +23,6 @@ class User < ActiveRecord::Base
     	end
 	end
 
-
-# note to self:
-# to grant admin attribute to the current user
-# current_user.update_attribute :admin, true
-
+#note to self
 #if current_user.try(:admin?)
 #for supporting pages without current user

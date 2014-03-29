@@ -10,10 +10,13 @@ class BattlesController < ApplicationController
   # GET /battles/1
   # GET /battles/1.json
   def show
-    @reply = Reply.new
+    if current_user
+      @reply = Reply.new
+      @reply.battle_id = @battle.id
+      @reply.user_id = current_user.id
+    end
+
     @replies = @battle.replies
-    @reply.user_id = current_user.id
-    @reply.battle_id = @battle.id
     @characters = @battle.characters
   end
 

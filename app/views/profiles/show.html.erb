@@ -1,14 +1,64 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>About:</strong>
-  <%= @profile.about %>
-</p>
+<h1><%=current_user.username%> 's profile </h1>
 
-<p>
-  <strong>User:</strong>
-  <%= @profile.user_id %>
-</p>
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#profile" data-toggle="tab">Profile</a></li>
+  <li><a href="#character" data-toggle="tab">Characters</a></li>
+  <li><a href="#participation" data-toggle="tab">Activities</a></li>
+</ul>
 
-<%= link_to 'Edit', edit_profile_path(@profile) %> |
-<%= link_to 'Back', profiles_path %>
+<div class="tab-content">
+<div id = "profile" class = "tab-pane active">
+	<p>
+	  <strong>About:</strong>
+	  <%= @profile.about %>
+	</p>
+
+	<%if current_user%>
+		<%if current_user.admin %>
+			<%=button_to "make admin",:controller => 'profiles', :action => 'make_admin'%>
+		<%end%>
+	<%end%>
+
+	<%if current_user %>
+		<%if current_user.id == @profile.user.id%>
+			<%= link_to 'Edit', edit_profile_path(@profile) %> 
+		<%end%>
+		<%if current_user.admin%>
+			<%= link_to 'Back', profiles_path %>
+		<%end%>
+	<%end%>
+</div>
+
+<div id = "character" class = "tab-pane">
+	<h2><%= @profile.user.username%> 's Characters</h2>
+	<%if @character%>
+		<%@character.each do |character|%>
+			<%=link_to character.name, character%>
+		<%end%>
+	<%else%>
+		<p><%=@profile.user.username%> doesn't have any character at the moment.</p>
+	<%end%>
+	
+</div>
+
+<div id = "participation"  class = "tab-pane">
+	<h2><%= @profile.user.username%> 's Recent Activities</h2>
+	<%if @replies%>
+		<%@replies.each do |reply|%>
+			<p>
+				<%link_to @profile.user.username replies to reply.battle.name, tournament_round_battle_path( 
+					:tournament_id => @reply.battle.round.tournament.id,
+					:round_id => @reply.battle.round.id, 
+					:battle_id => @reply.battle.id) %>
+			</p>
+		<%end%>
+	<%else%>
+		<p><%=@profile.user.username%> doesn't have any activity at the moment</p>
+	<%end%>
+</div>
+
+</div>
+
+

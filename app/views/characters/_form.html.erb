@@ -31,6 +31,31 @@
     <%= f.label :race %><br>
     <%= f.text_field :race %>
   </div>
+  
+  <!-- For using character sheets -->
+  <%= fields_for @charactersheet, :html => {:multipart => true} do |p| %>
+
+    <div class="field">
+      <% p.label :character_id %><br>
+      <%= p.hidden_field :character_id, :value => @character.id %>
+
+    </div>
+    <div class="field">
+      <%= p.label :title %><br>
+      <%= p.text_field :title %>
+    </div>
+    <div class="field">
+      <%= p.label :description %><br>
+      <%= p.text_area :description %>
+    </div>
+    <div class="field">
+      <%= p.label :sheet %><br>
+      <%= p.file_field :sheet %>
+      <%= p.hidden_field :sheet_cache %>
+    </div>
+    
+  <% end %>
+
   <div class="actions">
     <%= f.submit %>
   </div>

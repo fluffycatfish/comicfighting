@@ -25,21 +25,20 @@
 	<!-- tournament is still open for registration -->
 	<p>
 		<%= link_to "Participate Now", new_tournament_participation_path(:tournament => @tournament.id),class: "btn btn-primary btn-lg" ,role: "button"%>
-      <%=current_user%>
+      <%if current_user%>
   	  	<%if current_user.admin %>
   			<%= form_for(@tournament) do |f| %>
-  		
   	    		
   	    		<% f.check_box :state, { :checked => true }%> 
-  				
+  				  
   				<div class="actions">
   	    			<%= f.submit %>
   	  			</div>
     			<%end%>
   	  	<%end%>
       <%end%>
+    <%end%>
 	</p>
-
   
 </p>
 

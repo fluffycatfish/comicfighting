@@ -22,6 +22,7 @@ Comicfighting::Application.routes.draw do
   get "static_pages/home"
   get "static_pages/about"
   get "static_pages/admin"
+  post "profiles/:id/make_admin", to: 'profiles#make_admin'
   get "tournaments/start", to: 'tournaments#start'
 
   resources :profiles

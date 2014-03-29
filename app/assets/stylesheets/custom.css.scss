@@ -164,6 +164,12 @@ input {
 }
 /* miscellaneous */
 
+.breadcrumb > li + li:before {
+    color: #CCCCCC;
+    content: "/ ";
+    padding: 0 5px;
+}
+
 .debug_dump {
   clear: both;
   float: left;

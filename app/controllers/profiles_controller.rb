@@ -10,15 +10,20 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   # GET /profiles/1.json
   def show
-    
+    @replies = @profile.user.replies
+    @characters = @profile.user.characters
   end
+
 
   def show()
 
   end
 
-  def makeadmin
+  def make_admin
+    @profile = Profile.find(params[:id])
     @profile.user.update_attribute :admin, true
+    redirect_to :back
+
   end
 
   # GET /profiles/new
