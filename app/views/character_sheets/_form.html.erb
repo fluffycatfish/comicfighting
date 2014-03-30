@@ -12,8 +12,14 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :sheet %><br>
+    <%= f.file_field :sheet %>
+    <%= f.hidden_field :sheet_cache %>
+  </div>
+
+  <div class="field">
     <%= f.label :character_id %><br>
-    <%= f.number_field :character_id %>
+    <%= f.hidden_field :character_id ,:value => params[:character_id]%>
   </div>
   <div class="field">
     <%= f.label :title %><br>
@@ -23,11 +29,7 @@
     <%= f.label :description %><br>
     <%= f.text_area :description %>
   </div>
-  <div class="field">
-    <%= f.label :sheet %><br>
-    <%= f.file_field :sheet %>
-    <%= f.hidden_field :sheet_cache %>
-  </div>
+  
   <div class="actions">
     <%= f.submit %>
   </div>

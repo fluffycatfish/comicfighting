@@ -45,7 +45,7 @@ ________________________________________________________________________________
   <p>There are currently no Character Sheet</p>
 <%end%>
 
-
+<h2><%=link_to "Add a character sheet", new_character_sheet_path(:character_id => @character.id)%></h2>
 
 <%= link_to 'Edit', edit_character_path(@character) %> |
 <%= link_to 'Back', characters_path %>

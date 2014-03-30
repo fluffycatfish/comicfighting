@@ -15,6 +15,7 @@ class CharacterSheetsController < ApplicationController
   # GET /character_sheets/new
   def new
     @character_sheet = CharacterSheet.new
+    @character = Character.find(params[:character_id])
   end
 
   # GET /character_sheets/1/edit
