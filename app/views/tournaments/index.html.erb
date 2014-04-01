@@ -4,8 +4,6 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>About</th>
-      <th>Round no</th>
       <th>State</th>
       <th></th>
       <th></th>
@@ -17,9 +15,11 @@
     <% @tournaments.each do |tournament| %>
       <tr>
         <td><%= tournament.name %></td>
-        <td><%= tournament.about %></td>
-        <td><%= tournament.round_no %></td>
-        <td><%= tournament.state %></td>
+        <%if tournament.state %>
+          <td>Started</td>
+        <%else%>
+          <td>Recruiting</td>
+        <%end%>
         <td><%= link_to 'Show', tournament %></td>
 
         <%if current_user%>

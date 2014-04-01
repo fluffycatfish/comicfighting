@@ -17,7 +17,7 @@
 
 <%= image_tag @character_sheet.sheet.to_s %>
 
-<h2><%=link_to "create character sheet", character_path(@character_sheet.character)%></h2>
+<h2><%=link_to "back to character", character_path(@character_sheet.character)%></h2>
 
 <%= link_to 'Edit', edit_character_sheet_path(@character_sheet) %> |
 <%= link_to 'Back', character_sheets_path %>

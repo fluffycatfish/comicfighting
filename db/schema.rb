@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140328151635) do
+ActiveRecord::Schema.define(version: 20140401111742) do
 
   create_table "battle_participations", force: true do |t|
     t.integer  "character_id"
@@ -81,11 +81,13 @@ ActiveRecord::Schema.define(version: 20140328151635) do
   end
 
   create_table "round_participations", force: true do |t|
-    t.integer  "character_id"
     t.integer  "round_id"
-    t.boolean  "active"
+    t.integer  "character_id"
+    t.integer  "point"
+    t.integer  "late_deduction"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "advanced_round"
   end
 
   create_table "rounds", force: true do |t|
@@ -99,6 +101,9 @@ ActiveRecord::Schema.define(version: 20140328151635) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "tournament_id"
+    t.boolean  "started"
+    t.integer  "participation_cap"
+    t.boolean  "advanced_round"
   end
 
   create_table "tournament_participations", force: true do |t|
@@ -106,6 +111,7 @@ ActiveRecord::Schema.define(version: 20140328151635) do
     t.integer  "tournament_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "participated"
   end
 
   create_table "tournaments", force: true do |t|
@@ -116,6 +122,7 @@ ActiveRecord::Schema.define(version: 20140328151635) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "participation_cap"
+    t.integer  "current_round"
   end
 
   create_table "users", force: true do |t|

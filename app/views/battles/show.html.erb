@@ -1,6 +1,6 @@
 <ol class="breadcrumb">
   <li><%=link_to @battle.round.tournament.name, tournament_path(:tournament_id => @battle.round.tournament.id) %></li>
-  <li><%=link_to @battle.round.name, tournament_round_path(:tournament_id => @battle.round.tournament.id, :round_id => @battle.round.id) %></li>
+  <li><%=link_to "Chapter " + @battle.round.round_no.to_s + " : " + @battle.round.name, tournament_round_path(:tournament_id => @battle.round.tournament.id, :round_id => @battle.round.id) %></li>
   <li class="active"><%=@battle.name%></li>
 </ol> 
 

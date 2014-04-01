@@ -1,72 +1,184 @@
-<p id="notice"><%= notice %></p>
-
 <ol class="breadcrumb">
   <li><%=link_to @round.tournament.name, tournament_path(:tournament_id => @round.tournament.id) %></li>
-  <li class="active"><%=@round.name%></li>
+  <li class="active">Chapter <%= @round.round_no%> : <%=@round.name%></li>
 </ol> 
 
-<p>
-  <strong>Round no:</strong>
-  <%= @round.round_no %>
-</p>
+<h1><%= @round.name %></h1>
 
-<p>
-  <strong>Name:</strong>
-  <%= @round.name %>
-</p>
+<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>About:</strong>
-  <%= @round.about %>
-</p>
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#about" data-toggle="tab">About</a></li>
+  <li><a href="#battle" data-toggle="tab">Battle</a></li>
+  <li><a href="#participant" data-toggle="tab">Participants</a></li>
+  <%if current_user.try(:admin?)%>
+    <li><a href="#admin" data-toggle="tab">Admin</a></li>
+  <%end%>
+</ul>
 
-<p>
-  <strong>Turn duration:</strong>
-  <%= @round.turn_duration %>
-</p>
+<div class="tab-content">
+  <div id = "about" class = "tab-pane active">
+    <h2>
+      <%=@round.tournament.name%> round <%= @round.round_no %>
+    </h2>
 
-<p>
-  <strong>Start date:</strong>
-  <%= @round.start_date %>
-</p>
+    <p>
+      <strong>About:</strong>
+      <%= @round.about %>
+    </p>
 
-<p>
-  <strong>Vote date:</strong>
-  <%= @round.vote_date %>
-</p>
+    <p>
+      <strong>Turn duration:</strong>
+      <%= @round.turn_duration %>
+    </p>
 
-<p>
-  <strong>Calc date:</strong>
-  <%= @round.calc_date %>
-</p>
+    <p>
+      <strong>Start date:</strong>
+      <%if @round.start_date%>
+        <%= @round.start_date %>
+      <%else%>
+        coming soon
+      <%end%>
+    </p>
 
-<h1>Listing battles</h1>
+    <p>
+      <strong>Vote date:</strong>
+      <%if @round.vote_date%>
+        <%= @round.vote_date %>
+      <%else%>
+        coming soon
+      <%end%>
+    </p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+    <p>
+      <strong>Calc date:</strong>
+      <%if @round.calc_date%>
+        <%= @round.calc_date %>
+      <%else%>
+        coming soon
+      <%end%>
+    </p>
 
-  <tbody>
-    <% @battles.each do |battle| %>
-      <tr>
-        <td><%= link_to 'Show',  tournament_round_battle_path(:round_id => @round.id) %></td>
-        <td><%= battle.name %></td>
-        <%if current_user%>
-          <%if current_user.admin%>
-            <td><%= link_to 'Edit', edit_tournament_round_battle_path(:round_id => @round.id) %></td>
-            <td><%= link_to 'Destroy', tournament_round_battle_path(:round_id => @round.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          <%end%>
-        <%end%>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <%= link_to 'Edit', edit_tournament_round_path(@round, :tournament_id => @round.tournament.id) %> 
+  </div>
 
+  <div id = "battle" class = "tab-pane">
+    <h2>Battles</h2>
 
-<%= link_to 'Edit', edit_tournament_round_path(@round, :tournament_id => @round.tournament.id) %> 
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <%if @battles.count > 0 %>
+          <% @battles.each do |battle| %>
+            <tr>
+              <td><%= link_to 'Show',  tournament_round_battle_path(:round_id => @round.id) %></td>
+              <td><%= battle.name %></td>
+              <%if current_user%>
+                <%if current_user.try(:admin?)%>
+                  <td><%= link_to 'Edit', edit_tournament_round_battle_path(:round_id => @round.id) %></td>
+                  <td><%= link_to 'Destroy', tournament_round_battle_path(:round_id => @round.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+                <%end%>
+              <%end%>
+            </tr>
+          <% end %>
+         <%else%>
+            <p>Battles Coming Soon</p>
+         <%end%> 
+      </tbody>
+    </table>
+  </div>
+
+  <div id = "participant" class = "tab-pane">
+    <h2>Participants</h2>
+    <!-- <p>viewing tournament participation...</p> -->
+
+  </div>
+
+  
+  <%if current_user.try(:admin?)%>
+    <!-- if current user is admin, have admin pane -->
+    <div id = "admin" class = "tab-pane">    
+      <h2>Requests  for Participation</h2>
+      <h2>Places left : <%=@round.participation_cap - @round.round_participations.count%></h2>
+      
+      <%if @round.round_no == 1%>
+        <!-- First round use -->
+        <table>
+          <thead>
+            <tr>
+              <th>Character</th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @tournamentpars.each do |tournamentpar| %>
+              <%if tournamentpar.participated %>
+                <!-- already participated doesn't need anymore approving -->
+              <%else%>
+                <tr>
+                  <td><%= tournamentpar.character.name %></td>
+                  <td><%= link_to 'Show', tournamentpar %></td>
+                  <td><%= link_to 'Edit', edit_tournament_participation_path(tournamentpar) %></td>
+                  <td><%= link_to 'Destroy', tournamentpar, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                  <%if (@round.participation_cap - @round.round_participations.count) > 0%> 
+                    <td><%= button_to "Allow Participation",
+                      :controller => "rounds", :action => "allow_participation_tournament", 
+                      :id => @round.id, :tournament_participation_id => tournamentpar.id%></td>
+                  <%end%>
+                </tr>
+              <%end%>  
+            <% end %>
+          </tbody>
+        </table>
+      <%else%>
+        <!-- not first round use participation from the other round -->
+        <% @lastroundpar.each do |lastroundpar|%>
+        <table>
+          <thead>
+            <tr>
+              <th>Character</th>
+              <th>Point</th>
+              <th>Late deduction</th>
+              <th>Total Point</th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @lastroundpars.each do |lastroundpar| %>
+              <tr>
+                <td><%= lastroundpar.character.name %></td>
+                <td><%= lastroundpar.point %></td>
+                <td><%= lastroundpar.late_deduction %></td>
+                <td><%= (round_participation.point - lastroundpar.late_deduction) %></td>
+                <td><%= link_to 'Show', round_participation %></td>
+                <td><%= link_to 'Edit', edit_round_participation_path(round_participation) %></td>
+                <td><%= link_to 'Destroy', round_participation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                <td><%= button_to "Allow Participation",
+                      :controller => "rounds", :action => "allow_participation_round", 
+                      :id => @round.id, :round_participation_id => lastroundpar.id%></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <%end%> 
+    </div>
+  <%end%>
+  
+
+ 
+</div>

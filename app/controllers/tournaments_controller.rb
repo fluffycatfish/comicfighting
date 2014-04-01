@@ -7,10 +7,41 @@ class TournamentsController < ApplicationController
     @tournaments = Tournament.all
   end
 
+  def next_round
+    if current_user.try(:admin?)
+      if(@tournament.round_no > )
+        @tournament.update_attribute :current_round,(@tournament.current_round + 1)
+      end
+    end
+  emd
+
+  def start_tournament
+    @tournament = Tournament.find(params[:id])
+    if current_user.try(:admin?)
+      @tournament.update_attribute :state, true
+    end
+    redirect_to :back
+  end
+
   # GET /tournaments/1
   # GET /tournaments/1.json
   def show
+    @participated = false
+    # continue here
     @rounds = @tournament.rounds
+    if current_user
+      @characters = current_user.characters
+      @characters.each do |character|
+        @chatours = character.tournaments
+        @chatours.each do |chatour|
+          if chatour.id == @tournament.id
+            @participated = true
+            @character = character
+          end
+        end
+      end
+    end  
+
   end
 
   # GET /tournaments/new
@@ -26,7 +57,10 @@ class TournamentsController < ApplicationController
   # POST /tournaments.json
   def create
     @tournament = Tournament.new(tournament_params)
+
+    @tournament.current_round = 0
     @tournament.state = false
+
     respond_to do |format|
       if @tournament.save
         format.html { redirect_to @tournament, notice: 'Tournament was successfully created.' }
@@ -35,9 +69,9 @@ class TournamentsController < ApplicationController
         # Create all rounds when tournament is created
         @tournament.round_no.times do |x|
           @round = Round.new
+          @round.round_no = x + 1
           @round.tournament_id = @tournament.id
-          @round_no = x
-          @round.name = @tournament.name + " round " + x.to_s 
+          @round.name = @tournament.name + " round " + (x + 1).to_s 
           @round.turn_duration = 7
           @round.save
         end
@@ -72,11 +106,6 @@ class TournamentsController < ApplicationController
     end
   end
 
-  def start
-    @tournament.state = param[:state]
-    @tournament.save
-    # flash[:notice] = "Your Tournament has been started"
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

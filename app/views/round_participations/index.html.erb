@@ -1,0 +1,33 @@
+<h1>Listing round_participations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Round</th>
+      <th>Character</th>
+      <th>Point</th>
+      <th>Late deduction</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @round_participations.each do |round_participation| %>
+      <tr>
+        <td><%= round_participation.round_id %></td>
+        <td><%= round_participation.character_id %></td>
+        <td><%= round_participation.point %></td>
+        <td><%= round_participation.late_deduction %></td>
+        <td><%= link_to 'Show', round_participation %></td>
+        <td><%= link_to 'Edit', edit_round_participation_path(round_participation) %></td>
+        <td><%= link_to 'Destroy', round_participation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Round participation', new_round_participation_path %>

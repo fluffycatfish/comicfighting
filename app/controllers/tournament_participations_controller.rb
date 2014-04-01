@@ -19,8 +19,7 @@ class TournamentParticipationsController < ApplicationController
     end
 
     @tournament_participation = TournamentParticipation.new
-    @tournament = Tournament.find(params[:tournament])  
-    @tournament_participation.tournament_id = @tournament.id
+    @tournament = Tournament.find(params[:tournament_id])
   end
 
   # GET /tournament_participations/1/edit
@@ -31,11 +30,11 @@ class TournamentParticipationsController < ApplicationController
   # POST /tournament_participations.json
   def create
     @tournament_participation = TournamentParticipation.new(tournament_participation_params)
-    # @tournament_participation.tournament_id = Tournament.find(params[:tournament])
+    @tournament_participation.participated = false
 
     respond_to do |format|
       if @tournament_participation.save
-        format.html { redirect_to @tournament_participation, notice: 'Tournament participation was successfully created.' }
+        format.html { redirect_to :back, notice: 'Tournament participation was successfully created.' }
         format.json { render action: 'show', status: :created, location: @tournament_participation }
       else
         format.html { render action: 'new' }

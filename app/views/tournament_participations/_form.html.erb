@@ -18,11 +18,12 @@
 
   <div class="field">
     <% f.label :tournament_id %><br>
-     <% f.number_field :tournament_id, :place_holder => { :value => @tournament.id } %>
+    <%= f.hidden_field :tournament_id, :value => @tournament.id %>
   </div>
 
  
   <div class="actions">
     <%= f.submit %>
   </div>
+
 <% end %>

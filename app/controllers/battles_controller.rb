@@ -20,7 +20,7 @@ class BattlesController < ApplicationController
     @characters = @battle.characters
   end
 
-  end
+  
 
   # GET /battles/new
   def new
@@ -81,3 +81,4 @@ class BattlesController < ApplicationController
     def battle_params
       params.require(:battle).permit(:name, :about, :round_id, :tournament_id)
     end
+end

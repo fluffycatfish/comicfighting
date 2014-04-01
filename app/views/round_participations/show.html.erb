@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Round:</strong>
+  <%= @round_participation.round_id %>
+</p>
+
+<p>
+  <strong>Character:</strong>
+  <%= @round_participation.character_id %>
+</p>
+
+<p>
+  <strong>Point:</strong>
+  <%= @round_participation.point %>
+</p>
+
+<p>
+  <strong>Late deduction:</strong>
+  <%= @round_participation.late_deduction %>
+</p>
+
+<%= link_to 'Edit', edit_round_participation_path(@round_participation) %> |
+<%= link_to 'Back', round_participations_path %>

@@ -16,30 +16,25 @@
 </p>
 
 <p>
-  <strong>State:</strong>
   <%if @tournament.state %>
   	<!-- tournament has already started -->
 	<!-- todo: might include the current round thing later -->
-	<p>Tournament has already started</p>
+	<p>This tournament has been started</p>
   <%else%>
 	<!-- tournament is still open for registration -->
 	<p>
-		<%= link_to "Participate Now", new_tournament_participation_path(:tournament => @tournament.id),class: "btn btn-primary btn-lg" ,role: "button"%>
+    <%if(@participated)%>
+		  <p>You have already participated </p>
+    <%else%>
+      <%= link_to "Participate Now", new_tournament_participation_path(:tournament_id => @tournament.id),class: "btn btn-primary btn-lg" ,role: "button"%>
+    <%end%>
       <%if current_user%>
   	  	<%if current_user.admin %>
-  			<%= form_for(@tournament) do |f| %>
-  	    		
-  	    		<% f.check_box :state, { :checked => true }%> 
-  				  
-  				<div class="actions">
-  	    			<%= f.submit %>
-  	  			</div>
-    			<%end%>
+  			   <%= button_to "Start Tournament", :controler => "tournaments", :action => "start_tournament"%>
   	  	<%end%>
       <%end%>
     <%end%>
 	</p>
-  
 </p>
 
 
@@ -54,8 +49,8 @@
 <table>
   <thead>
     <tr>
-      <th>Round no</th>
-      <th>Name</th>
+      <th></th>
+      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -65,8 +60,8 @@
   <tbody>
     <% @rounds.each do |round| %>
       <tr>
-        <td><%= round.round_no %></td>
-        <td><%= round.name %></td>
+        <td>Chapter <%= round.round_no %>:  </td>
+        <td> <%= round.name %></td>
         <td><%= link_to 'Show',  tournament_round_path(:tournament_id => @tournament.id)  %></td>
         <%if current_user%>
           <%if current_user.admin %>

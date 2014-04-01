@@ -1,4 +1,6 @@
 Comicfighting::Application.routes.draw do
+  resources :round_participations
+
   resources :replies
 
   resources :battle_participations
@@ -16,16 +18,24 @@ Comicfighting::Application.routes.draw do
   resources :character_sheets
 
   resources :characters
+  resources :profiles
 
   get "sessions/new"
   get "registrations/new"
   get "static_pages/home"
   get "static_pages/about"
   get "static_pages/admin"
-  post "profiles/:id/make_admin", to: 'profiles#make_admin'
-  get "tournaments/start", to: 'tournaments#start'
 
-  resources :profiles
+
+  post "profiles/:id/make_admin", to: 'profiles#make_admin'
+
+  post "tournaments/:id/start_tournament", to: 'tournaments#start_tournament'
+ 
+  # Rounds selecting participants
+  post "rounds/:id/allow_participation_tournament/:tournament_participation_id", 
+    to: 'rounds#allow_participation_tournament'
+  post "rounds/:id/allow_participation_round/:round_participation_id", 
+    to: 'rounds#allow_participation_round'
 
   devise_for :users, :controllers => {:registrations => "registrations", :sessions => "sessions"}
     # , :path_names { :sign_up => "register" }
